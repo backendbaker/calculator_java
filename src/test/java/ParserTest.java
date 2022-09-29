@@ -37,7 +37,7 @@ class ParserTest {
         parser = new calculator.Parser(exprString);
 
         Expression expr = parser.getExpression();
-        assertFalse(expr.getOperator().isEmpty());
+        assertFalse(expr.getOperators().isEmpty());
     }
 
     @Test
@@ -46,7 +46,7 @@ class ParserTest {
         parser = new calculator.Parser(exprString);
 
         Expression expr = parser.getExpression();
-        assertEquals("+", expr.getOperator());
+        assertEquals("+", expr.getOperators().getFirst());
     }
 
     @Test
@@ -55,7 +55,7 @@ class ParserTest {
         parser = new calculator.Parser(exprString);
 
         Expression expr = parser.getExpression();
-        assertEquals("I", expr.getOperands().elementAt(0));
+        assertEquals("I", expr.getOperands().getFirst());
     }
 
     @Test
@@ -64,7 +64,7 @@ class ParserTest {
         parser = new calculator.Parser(exprString);
 
         Expression expr = parser.getExpression();
-        assertEquals("V", expr.getOperands().lastElement());
+        assertEquals("V", expr.getOperands().getLast());
     }
 
 }

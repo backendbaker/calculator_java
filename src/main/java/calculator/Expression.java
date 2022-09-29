@@ -1,32 +1,36 @@
 package calculator;
-import java.util.Stack;
+
+import java.util.ArrayDeque;
 
 public class Expression {
-    private String operator;
-    private Stack<String> operands;
+    private ArrayDeque<String> operators;
+    private ArrayDeque<String> operands;
+    private final int MAX_COUNT_OPERANDS = 2;
+    private final int MAX_COUNT_OPERATORS = 1;
 
     private String Result;
 
     public Expression(){
-        this.operator = null;
-        this.operands = new Stack<String>();
+        this.operators = new ArrayDeque<String>();
+        this.operands = new ArrayDeque<String>();
     }
 
-    public String getOperator() {
-        return operator;
+    public ArrayDeque<String> getOperators() {
+        return operators;
     }
 
-    public void setOperator(String operator) {
-        this.operator = operator;
+    public void setOperators(String operator) {
+        if (operators.size() == MAX_COUNT_OPERATORS) {return;}
+        this.operators.add(operator);
     }
 
-    public Stack<String> getOperands() {
+    public ArrayDeque<String> getOperands() {
         return operands;
     }
 
     public void setOperands(String operand) {
-        if (operands.size() == 2) {return;}
-        this.operands.push(operand);
+        if (operands.size() == MAX_COUNT_OPERANDS) {return;}
+        this.operands.add(operand);
     }
 
     public String getResult() {

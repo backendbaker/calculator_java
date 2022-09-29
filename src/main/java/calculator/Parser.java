@@ -46,7 +46,7 @@ public class Parser {
         for (int i = 0; i < exprCleanStr.length(); i++) {
             char c = exprCleanStr.charAt(i);
             if (operators.matcher(String.valueOf(c)).matches()) {
-                expression.setOperator(String.valueOf(c));
+                expression.setOperators(String.valueOf(c));
                 expression.setOperands(sb.toString());
                 sb.delete(0, sb.length());
                 continue;
