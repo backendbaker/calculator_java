@@ -24,7 +24,14 @@ class CalcController {
                     System.exit(-1);
                 }
             }
-            case ARABIC -> {handleArabicExpession(expression);}
+            case ARABIC -> {
+                try {
+                    handleArabicExpession(expression);
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                    System.exit(-1);
+                }
+            }
             default -> {throw new NotImplementedException("Для данного типа выражения нет алгоритма");}
         }
 
@@ -35,7 +42,7 @@ class CalcController {
         var firstOperand = converter.toArabic(expression.getOperands().getFirst());
         var secondOperand = converter.toArabic(expression.getOperands().getLast());
         if (firstOperand > 10 || secondOperand > 10) {
-            throw new IllegalArgumentException("Введённые числа превышают 10");
+            throw new IllegalArgumentException("Введённые числа превышают X");
         }
         var operator = expression.getOperators().getFirst();
 
@@ -53,6 +60,9 @@ class CalcController {
     private void handleArabicExpession(Expression expression) {
         var firstOperand = Integer.parseInt(expression.getOperands().getFirst());
         var secondOperand = Integer.parseInt(expression.getOperands().getLast());
+        if (firstOperand > 10 || secondOperand > 10) {
+            throw new IllegalArgumentException("Введённые числа превышают 10");
+        }
         var operator = expression.getOperators().getFirst();
 
         int numResult = 0;
@@ -63,6 +73,7 @@ class CalcController {
                 }
                 catch (Exception ex) {
                     System.out.println(ex.getMessage());
+                    System.exit(-1);
                 }
             }
         }
