@@ -39,7 +39,7 @@ class CalcController {
     }
 
     private void handleRomanExpession(Expression expression) {
-        var firstOperand = converter.toArabic(expression.getOperands().getFirst());
+        var firstOperand = converter.tgoArabic(expression.getOperands().getFirst());
         var secondOperand = converter.toArabic(expression.getOperands().getLast());
         if (firstOperand > 10 || secondOperand > 10) {
             throw new IllegalArgumentException("Введённые числа превышают X");
