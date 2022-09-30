@@ -20,6 +20,10 @@ public class Calculator {
         },
         DIVIDE("/") {
             public int apply(int x, int y) {
+
+                if (y == 0) {
+                    throw new ArithmeticException("Деление на ноль запрещено");
+                }
                 return x / y;
             }
         };

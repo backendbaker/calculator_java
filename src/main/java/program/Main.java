@@ -1,5 +1,4 @@
 package program;
-import calculator.*;
 
 import java.util.Scanner;
 
@@ -13,20 +12,17 @@ public class Main {
         System.out.println("Результат: " + calc(exprString));
         System.exit(0);
     }
+
     public static String calc(String input) {
-        CalcController controller = new CalcController();
-
-        Expression expr = new Parser(input).getExpression();
-        var operator = expr.getOperators().getFirst();
-
-        for (Calculator.Operation op: Calculator.Operation.values()) {
-            if (op.toString().contains(operator)) {
-                var operands = expr.getOperands();
-                var result = op.apply(Integer.parseInt(operands.getFirst()), Integer.parseInt(operands.getLast()));
-                expr.setResult(String.valueOf(result));
-                break;
-            }
+        String result = new String();
+        try{
+            result = new CalcController().calculate(input);
         }
-        return expr.getResult();
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+            System.exit(-1);
+        }
+        return result;
     }
 }

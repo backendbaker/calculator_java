@@ -6,7 +6,7 @@ import java.util.Locale;
 public class Converter {
     public Converter() {}
     private final int MAX_ROMAN_NUM = 3999;
-    public int toArabic(String operand) {
+    public int toArabic(String operand) throws IllegalArgumentException {
         String num = operand.toUpperCase(Locale.ENGLISH);
         int result = 0;
 
@@ -25,16 +25,16 @@ public class Converter {
         }
 
         if (num.length() > 0) {
-            throw new IllegalArgumentException("");
+            throw new IllegalArgumentException("Неверный аругмент конвертации");
         }
 
         return result;
     }
 
-    public String toRoman(String operand) {
+    public String toRoman(int operand) throws IllegalArgumentException {
         int num = 0;
         try {
-            num = Integer.parseInt(operand);
+            num = operand;
             if (num > MAX_ROMAN_NUM){
             throw new IllegalArgumentException("Неверный аругмент конвертации");
             }
