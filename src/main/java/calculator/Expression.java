@@ -5,6 +5,7 @@ import java.util.ArrayDeque;
 public class Expression {
     private ArrayDeque<String> operators;
     private ArrayDeque<String> operands;
+    private ExpressionType type;
     private final int MAX_COUNT_OPERANDS = 2;
     private final int MAX_COUNT_OPERATORS = 1;
 
@@ -39,5 +40,13 @@ public class Expression {
 
     public void setResult(String result) {
         Result = result;
+    }
+
+    public ExpressionType getType() {
+        return type;
+    }
+
+    public void setType(ExpressionType type) {
+        this.type = type;
     }
 }

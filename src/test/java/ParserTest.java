@@ -67,4 +67,19 @@ class ParserTest {
         assertEquals("V", expr.getOperands().getLast());
     }
 
+    @Test
+    void parserMustSetTypeExpressionArabic(){
+        String exprString = "1+2";
+        var expr = new Parser(exprString).getExpression();
+
+        assertEquals(ExpressionType.ARABIC, expr.getType());
+    }
+
+    @Test
+    void parserMustSetTypeExpressionRoman(){
+        String exprString = "I+V";
+        var expr = new Parser(exprString).getExpression();
+
+        assertEquals(ExpressionType.ROMAN, expr.getType());
+    }
 }

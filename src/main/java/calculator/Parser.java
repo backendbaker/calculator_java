@@ -10,15 +10,10 @@ public class Parser {
 
     public Parser(String exprString) throws IllegalArgumentException {
         try {
-            if (isValidExpression(exprString)) {
-                expression = new Expression();
-                parseExpression(exprString);
-            }
-            else {
-                throw new IllegalArgumentException("Неверный формат выражения");
-            }
+            transform(exprString);
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             System.out.println(ex.getMessage());
             System.exit(-1);
         }
@@ -30,12 +25,19 @@ public class Parser {
         }
         return this.expression;
     }
-
+    private void transform(String exprString) {
+        if (isValidExpression(exprString)) {
+            expression = new Expression();
+            parseExpression(exprString);
+        }
+        else {
+            throw new IllegalArgumentException("Неверный формат выражения");
+        }
+    }
     private boolean isValidExpression(String exprString) {
         Pattern validationExpr = Pattern.compile(VALIDATION_STRING_EXPR, Pattern.CASE_INSENSITIVE);
         Matcher matcher = validationExpr.matcher(exprString);
-        if (!matcher.matches()) { return false; }
-        return true;
+        return matcher.matches();
     }
 
     private void parseExpression(String exprString) {
@@ -56,5 +58,27 @@ public class Parser {
                 expression.setOperands(sb.toString());
             }
         }
+
+        defineAndSetExpressionOperandsType();
+    }
+
+    private void defineAndSetExpressionOperandsType() throws IllegalArgumentException{
+        var operands = expression.getOperands();
+        var typeExprList = ExpressionType.values();
+
+        // n^3 - может можно быстрее. подумать
+        // Не создавать паттерн каждый раз в цикле
+        // todo: переделать с регулярок на RomanNums enum что бы можно было добавлять новые цифры в одном месте
+
+        for (ExpressionType t: typeExprList) {
+            Pattern pattern = Pattern.compile(t.getRegExpString(), Pattern.CASE_INSENSITIVE);
+            var isType = operands.stream().allMatch(x -> pattern.matcher(x).matches());
+            if (isType) {
+                expression.setType(t);
+                break;
+            }
+        }
+
+        if (expression.getType() == null) {throw new IllegalArgumentException("Неверный формат выражения");}
     }
 }

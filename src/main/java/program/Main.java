@@ -13,8 +13,9 @@ public class Main {
         System.out.println("Результат: " + calc(exprString));
         System.exit(0);
     }
-
     public static String calc(String input) {
+        CalcController controller = new CalcController();
+
         Expression expr = new Parser(input).getExpression();
         var operator = expr.getOperators().getFirst();
 
